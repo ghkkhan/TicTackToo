@@ -1,0 +1,18 @@
+{
+  "name": "tic-tack-too",
+  "version": "1.0.0",
+  "description": "TTT Arena. Place for the greatest of TTT AIs to duke it out and come out on top",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "huz and ian",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
