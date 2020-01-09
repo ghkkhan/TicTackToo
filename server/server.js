@@ -9,7 +9,10 @@ const port = 3000;
 
 // send index on main page
 let index = path.join(__dirname, '/../index.html');
-app.use(express.static('../Frontend/mainpage'));
+
+app.use(express.static('../client/mainpage'));
+app.use(express.static('../client/lobbypage'));
+
 app.get('/', (req, res) => {
     res.sendFile(index);
 });

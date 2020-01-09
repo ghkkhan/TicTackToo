@@ -1,0 +1,61 @@
+div div {
+    float: left;
+}
+#main {
+    margin: 10px;
+    width: max-content;
+    padding: 30px;
+    text-align: center;
+    border-style: solid;
+}
+.code {
+    font-size: 24px;
+    min-height: 900px;
+    min-width: 600px;
+    text-align: left;
+    border-style: solid;
+    padding: 15px;
+}
+p {
+    font-size: 80px;
+}
+.square {
+    height: 240px;
+    width: 240px;
+    border-color: black;
+    border-width: 3px;
+    border-style: solid;
+    display:inline-block;
+    text-align: center;
+}
+#board{
+    padding: 20px;
+}
+#topLeft {
+    border-top-color: white;
+    border-left-color: white;
+}
+#topMid {
+    border-top-color: white;
+}
+#topRight {
+    border-top-color: white;
+    border-right-color: white;
+}
+#midLeft {
+    border-left-color: white;
+}
+#midRight {
+    border-right-color: white;
+}
+#botLeft {
+    border-bottom-color: white;
+    border-left-color: white;
+}
+#botMid {
+    border-bottom-color: white;
+}
+#botRight {
+    border-bottom-color: white;
+    border-right-color: white;
+}

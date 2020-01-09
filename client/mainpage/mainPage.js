@@ -8,7 +8,7 @@ class MainPager extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-        endpoint: "localhost:8080",
+        endpoint: "localhost:3000",
         player1UserName: "",
         player2UserName: "",
         gameID: ""
@@ -56,6 +56,11 @@ class MainPager extends React.Component {
         }
     }
 
+    // toLobby = (e) => {
+    //     e.preventDefault();
+    //     window.location.replace('/lobby.html');
+    // }
+
     //react stuff. looks pretty disgusting but Babel doesn't work for me...
     render() {
         return (
@@ -68,13 +73,15 @@ class MainPager extends React.Component {
                     c("hr",null),
                     c("h3",{className:"gameText"},"Enter your here if you have a Match ID"),
                     c("input", {type:"text", onChange:this.HandlePlayer2Inputs, className:"dataForm", placeholder: "Enter UserName here", name:"P2Usr_Nme"}),
-                    c("input", {type:"password", onChange:this.HandlePlayer2Inputs, classNames:"dataForm", placeholder: "Enter Code Here", name:"P2Mch_ID"}),
+                    c("input", {type:"password", onChange:this.HandlePlayer2Inputs, className:"dataForm", placeholder: "Enter Code Here", name:"P2Mch_ID"}),
                     c("button",{id:"joinGameButton", className:"dataForm", onClick: this.joinGame}, "Match ID"),
-                )
+                    c("button", {onClick: this.toLobby}, "skipToLobby"),
+                ),
+                
             )
         );
     }
 }
 
 const domContainer = document.querySelector('#root');
-ReactDOM.render(React.createElement(MainPager), domContainer);
+ReactDOM.render(c(MainPager), domContainer);
