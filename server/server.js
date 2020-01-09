@@ -5,7 +5,8 @@ const app = express();
 const port = 3000;
 
 let index = path.join(__dirname, '/../index.html');
-app.use(express.static('../Frontend/mainpage'));
+app.use(express.static('../client/mainpage'));
+app.use(express.static('../client/lobbypage'));
 
 app.get('/', (req, res) => {
     res.sendFile(index);
