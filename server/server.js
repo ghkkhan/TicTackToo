@@ -39,10 +39,12 @@ function generate_token(length){
 roomCount = 0
 
 app.post('/create', (req, res) => {
-    console.log(req.body)
+    // console.log(req.body)
 	users.push(req.body.username)
+	
 	room_and_code.push({
-		users: [],
+		user0: req.body.username,
+		user1: '',
 		room_code: hex_md5(roomCount)
 	})
 	data = {
