@@ -6,3 +6,7 @@ Tic Tac Toe AI duel
 - [ ] Google OAuth _ Huz
 - [ ] Front_end _ Huz;
 - [ ] backend -Ian
+- [ ] Window.localtion.replace alternative -- Huz;
+- [x] Python-backend - IAn;
+- [ ] Room-setup;
+- [ ] lobby-setup;
