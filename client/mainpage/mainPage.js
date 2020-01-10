@@ -30,37 +30,37 @@ class MainPager extends React.Component {
             gameID: e.target.value,
         });
     }
-
     //below will be some event handlers for the buttons. should be two of them.
     createGame = (e) => {
         e.preventDefault();
         if(this.state.player1UserName != "") {
             // createGameScript(this.state.HandlePlayer1Input);
-            let Url = 'http://localhost:3000/test';
-            let data = {};
+            let Url = 'http://localhost:3000/create';
+            let data = {username: this.state.player1UserName};
             $.post(Url, data, function(data, status) {
                 console.log("data"+data);
-            })
+                localStorage.pToken = data.roomCode;
+            });
         }
         else {
             alert("You forgot to enter a username, dummy!");
+        }
+    }
+    componentDidMount() {
+        if(localStorage.pToken === null) {
+            console.log('this player already has a ');
         }
     }
     joinGame = (e) => {
         e.preventDefault();
         if(this.state.player2UserName != "" && this.state.gameID != "") {
             // joinGameScript(this.state.HandlePlayer2Inputs, this.state.HandlePlayer2MatchID);
+
         }
         else {
             alert("You forgot to enter important data somewhere...");
         }
     }
-
-    // toLobby = (e) => {
-    //     e.preventDefault();
-    //     window.location.replace('/lobby.html');
-    // }
-
     //react stuff. looks pretty disgusting but Babel doesn't work for me...
     render() {
         return (
@@ -77,11 +77,9 @@ class MainPager extends React.Component {
                     c("button",{id:"joinGameButton", className:"dataForm", onClick: this.joinGame}, "Match ID"),
                     c("button", {onClick: this.toLobby}, "skipToLobby"),
                 ),
-                
             )
         );
     }
 }
-
 const domContainer = document.querySelector('#root');
 ReactDOM.render(c(MainPager), domContainer);

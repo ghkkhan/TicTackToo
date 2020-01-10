@@ -8,10 +8,12 @@ const app = express();
 const port = 3000;
 
 // send index on main page
-let index = path.join(__dirname, '/../index.html');
 
 app.use(express.static('../client/mainpage'));
 app.use(express.static('../client/lobbypage'));
+
+let index = path.join(__dirname, '/../index.html');
+let lobby = path.join(__dirname, '/../client/lobbypage/lobby.html');
 
 app.get('/', (req, res) => {
     res.sendFile(index);
@@ -26,10 +28,9 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 app.use(express.json());
 
 
-app.post('/create_game', (req, res) => {
-    console.log(req.body)
-    res.send('Hello');
-})
+app.post('/create', (req, res) => {
+    console.log("Got here");
+});
 
 app.listen(port, () => console.log(`example app listing to ${port}`));
 
