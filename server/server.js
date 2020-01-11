@@ -11,6 +11,7 @@ const port = 3000;
 
 app.use(express.static('../client/mainpage'));
 app.use(express.static('../client/lobbypage'));
+app.use(express.static('../client/gamepage'));
 
 let index = path.join(__dirname, '/../index.html');
 let lobby = path.join(__dirname, '/../client/lobbypage/lobby.html');
@@ -47,10 +48,11 @@ app.post('/create', (req, res) => {
 	room_and_code.push({
 		user0: req.body.username,
 		user1: '',
-		room_code: hex_md5(roomCount)
+		// room_code: hex_md5(roomCount)//this part was removed because the function isn't defined.
 	})
 	data = {
-		roomCode: hex_md5(roomCount)
+        // roomCode: hex_md5(roomCount)
+        roomCode: 10
 	}
 	roomCount++
     res.send(data);

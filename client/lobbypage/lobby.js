@@ -13,20 +13,25 @@ class LobbyPager extends React.Component {
         super(props);
         this.state = {
             endpoint: "localhost:3000",
-            userName: "Boomer",
-            gameID: "42069",
+            userName1: localStorage.userName,
+            gameID: localStorage.pToken,
+            userName2:"Waiting..."
         };
     }
 
     render() {
         return(
             c("div", null, 
-                c("h1", null, "Here is an ID for your match: "),
-                c("h3", null, "Username: " + this.state.userName),
-                c("h3", null, "Game ID: " + this.state.gameID),
-                c("h3", null, "Send the ID to whomever you want to challenge.\n"),
-                c("h3", null, "Choose a python script that you want to use in the competition."),
-                c("input",{type:"file", id:"fileAccepter", name:"fileAccepter", accept:".py"}),
+                c("h1", {id: "gameTitle"}, "Tic Tack Too"),
+                c("div",{id:"gameSquare"},
+                    c("h2", null, "Please wait on this page till match begins!"),
+                    c("h3", null, "Send the Game ID to whomever you wish to challenge.\n"),
+                    c("hr", null),
+                    c("h4", null, "Game ID: " + this.state.gameID),
+                    c("h4", null, "Your Username: " + this.state.userName1),
+                    c("h4", null, "Oponent's nomer: " + this.state.userName2)
+
+                ),
             )
         );
     }
