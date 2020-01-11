@@ -47,7 +47,7 @@ class MainPager extends React.Component {
     //below will be some event handlers for the buttons. should be two of them.
     createGame = (e) => {
         e.preventDefault();
-        if(this.state.player1UserName != "" && this.state.filename1 != "Pick Python File") {
+        if(this.state.player1UserName != "" && this.state.fileName1 != "Pick Python File") {
             let URL = 'http://localhost:3000/create';
             //sending the username and the uploaded file to the server.
             localStorage.userName = this.state.player1UserName;
@@ -59,6 +59,8 @@ class MainPager extends React.Component {
                 //data sent to and recieved from the server. going to the 
                 console.log("Game is Created. Changing page now.");
                 localStorage.pToken = data.roomCode;
+                localStorage.opponent = " Waiting..."
+                localStorage.isP1=true;
                 window.location.replace('/lobby.html');
             });
         }
@@ -68,7 +70,7 @@ class MainPager extends React.Component {
     }
     joinGame = (e) => {
         e.preventDefault();
-        if(this.state.player2UserName != "" && this.state.gameID != "" && this.state.filename2 != "Pick Python File") {
+        if(this.state.player2UserName != "" && this.state.gameID != "" && this.state.fileName2 != "Pick Python File") {
             let URL = 'http://localhost:3000/joinGame';
             //sending the data to the server.
             localStorage.userName = this.state.player2UserName;
@@ -80,12 +82,13 @@ class MainPager extends React.Component {
             }
             $.post(URL, data, function(data, status) {
                 console.log("game is being joined. Going to the loading page.");
+                localStorage.opponent = data.p1Name;
+                localStorage.isP1 = false;
                 window.location.replace('/lobby.html');//this will go to another page later on...
             });
-
         }
         else {
-            alert("You forgot to enter important data somewhere bud!");
+            alert("You forgot to enter important data somewhere bud!" + this.state.player2UserName);
         }
     }
     
@@ -114,7 +117,7 @@ class MainPager extends React.Component {
                     c("h3",{className:"gameText"},"Enter here if you have a Match ID"),
                     c("h5", {className:"gameText"}, "Also input your python script here."),
                     c("input", {type:"text", onChange:this.HandlePlayer2Inputs, className:"dataForm", placeholder: "Enter UserName here", name:"P2Usr_Nme"}),
-                    c("input", {type:"password", onChange:this.HandlePlayer2Inputs, className:"dataForm", placeholder: "Enter Code Here", name:"P2Mch_ID"}),
+                    c("input", {type:"text", onChange:this.HandlePlayer2MatchID, className:"dataForm", placeholder: "Enter Code Here", name:"P2Mch_ID"}),
                     c("input",{type:"file", id:"fileAccepter2", className:"fileAccepter", accept:".py", onChange:this.p2FileNameChange}),
                     c("label", {className:"FALabel", htmlFor:"fileAccepter2", id:"p2FileLabel"},
                         c("img", {src:"/python-seeklogo.com.svg", alt:"test", width:"20px",height:"20px", }), 

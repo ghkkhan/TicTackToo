@@ -47,17 +47,30 @@ app.post('/create', (req, res) => {
 	
 	room_and_code.push({
 		user0: req.body.username,
-		user1: '',
+        user1: '',
+        roomCode:roomCount,
 		// room_code: hex_md5(roomCount)//this part was removed because the function isn't defined.
 	})
 	data = {
         // roomCode: hex_md5(roomCount)
-        roomCode: 10
+        roomCode: roomCount,
 	}
 	roomCount++
     res.send(data);
 })
-
+app.post('/joinGame', (req, res) => {
+    users.push(req.body.username);
+    room_and_code.forEach(function(item, index, array){
+        if(item.roomCode === req.gameId) {
+            
+            room_and_code[index].user1 = req.body.username;
+        }
+        data = {
+            p1Name:room_and_code[index].user0
+        }
+        res.send(data);
+    });
+})
 app.listen(port, () => console.log(`example app listing to ${port}`));
 
 var room_and_code = []; // consists of {users: [], room_code: aaa}
