@@ -15,8 +15,6 @@ class MainPager extends React.Component {
         gameID: "",
         fileName1:"Pick Python File",
         fileName2: "Pick Python File",
-        fileData1:null,
-        fileData2: null,
         };
     }
   //next up are some setters for the states... should be 5 of 'em
@@ -63,7 +61,7 @@ class MainPager extends React.Component {
             }
         }).catch(error => console.log("error thrown: " + error));
     }
-    readFileContent(file) {
+    readFileContent = (file) => {
         const reader = new FileReader();
         return new Promise((resolve, reject) => {
             reader.onload = event => resolve(event.target.result);

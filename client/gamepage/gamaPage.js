@@ -7,7 +7,6 @@ const c = React.createElement;
 class GameRoom extends React.Component {
     constructor(props){
         super(props);
-
         this.state = {
             endpoint: "localhost:8080",
             board:[["X","O","O"],["O","X","O"],["X","O","X"]],
@@ -15,20 +14,17 @@ class GameRoom extends React.Component {
             player2Code: ""
         }
     }
-    render() {
+    render(){
         return(
             c("div",{id:"main"},
                 c("h1", {id: "gameTitle"}, "Tic Tack Too"),
                 //below is code for displaying the player 1 code...
                 c("div",{className:"code"}, 
-                    c("pre",null, 
-                        c("code", null, `
-import test; \n 
-wut?
-reutrn 4;
-end code </> 
-                        `)
-                    )
+                    c("textarea", {className:"textBoxes", readonly:"readonly"}, `
+import test;\n
+    wut?
+    reutrn 4fawjofwaefhiauwheflaeihfli hli hualwie hailwehfu aluiwefiuhaweiufhawiuefh lawhf ilfwh iu;
+end code </>`),
                 ),
                 //below is code for displaying the board
                 c("div", {id: "board"},
@@ -51,15 +47,12 @@ end code </>
                     )
                 ),
                 //below is code for displaying the player 2's code.
-                c("div",{className:"code"},
-                    c("pre",null, 
-                        c("code", null, `
-import test; \n 
+                c("div",{className:"code"}, 
+                    c("textarea", {className:"textBoxes", readonly:"readonly"}, `
+import test;
     wut?
-reutrn 4;
-end code </> 
-                        `)
-                    )
+    reutrn 4;awjofwaefhiauwheflaeihfli hli hualwie hailwehfu aluiwefiuhaweiufhawiuefh lawhf ilfwh iu;
+end code </>`),
                 ),
             )
         );

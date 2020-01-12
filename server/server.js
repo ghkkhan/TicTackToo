@@ -49,7 +49,6 @@ function generate_token(length){
 // app.post('/create', (req, res) => {
 //     // console.log(req.body)
 // 	users.push(req.body.username)
-	
 // 	room_and_code.push({
 // 		user0: req.body.username,
 //         user1: '',
