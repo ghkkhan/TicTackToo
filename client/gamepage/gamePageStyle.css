@@ -2,11 +2,9 @@ div div {
     float: left;
 }
 #main {
-    margin: 10px;
-    width: max-content;
-    padding: 30px;
-    text-align: center;
-    border-style: solid;
+    /* width: max-content; */
+    --BGVarColor:#333366;
+    padding: 2%;
 }
 .code {
     font-size: 24px;
@@ -15,6 +13,10 @@ div div {
     text-align: left;
     border-style: solid;
     padding: 15px;
+    background-color: #f6e1e1;
+    border: #ff9d76;
+    border-style: solid;
+    border-width: 7px;
 }
 p {
     font-size: 80px;
@@ -32,30 +34,30 @@ p {
     padding: 20px;
 }
 #topLeft {
-    border-top-color: white;
-    border-left-color: white;
+    border-top-color: var(--BGVarColor);
+    border-left-color: var(--BGVarColor);
 }
 #topMid {
-    border-top-color: white;
+    border-top-color: var(--BGVarColor);
 }
 #topRight {
-    border-top-color: white;
-    border-right-color: white;
+    border-top-color: var(--BGVarColor);
+    border-right-color: var(--BGVarColor);
 }
 #midLeft {
-    border-left-color: white;
+    border-left-color: var(--BGVarColor);
 }
 #midRight {
-    border-right-color: white;
+    border-right-color: var(--BGVarColor);
 }
 #botLeft {
-    border-bottom-color: white;
-    border-left-color: white;
+    border-bottom-color: var(--BGVarColor);
+    border-left-color: var(--BGVarColor);
 }
 #botMid {
-    border-bottom-color: white;
+    border-bottom-color: var(--BGVarColor);
 }
 #botRight {
-    border-bottom-color: white;
-    border-right-color: white;
+    border-bottom-color: var(--BGVarColor);
+    border-right-color: var(--BGVarColor);
 }

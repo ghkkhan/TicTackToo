@@ -14,18 +14,10 @@ class LobbyPager extends React.Component {
         this.state = {
             endpoint: "localhost:3000",
             userName1: localStorage.userName,
-            waitMessage:"Send the Game ID to whomever you wish to challenge.\n",
+            waitMessage:localStorage.waitMessage,
             gameID: localStorage.pToken,
             userName2:localStorage.opponent,
         };
-    }
-
-    componentDidMount() {
-        if(!localStorage.isP1) {
-            this.setState({
-                waitMessage:"The match is currently loading! The AI's are duking it out.",
-            });
-        }
     }
     render() {
         return(

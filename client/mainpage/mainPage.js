@@ -3,7 +3,8 @@
 
 //a handy shortcut. get used to it.
 const c = React.createElement;
-
+var fileData1 = null;
+var fileData2 = null;
 class MainPager extends React.Component {
     constructor(props) {
         super(props);
@@ -12,9 +13,10 @@ class MainPager extends React.Component {
         player1UserName: "",
         player2UserName: "",
         gameID: "",
-        file:"",
         fileName1:"Pick Python File",
-        fileName2: "Pick Python File"
+        fileName2: "Pick Python File",
+        fileData1:null,
+        fileData2: null,
         };
     }
   //next up are some setters for the states... should be 5 of 'em
@@ -37,15 +39,41 @@ class MainPager extends React.Component {
         this.setState({
             fileName1:e.target.value.split('\\').pop()
         });
+        const input = e.target;
+        if('files' in input && input.files.length > 0) {
+            placeFileContent(input.files[0], 1);
+        }
     }
     p2FileNameChange = (e) => {
         this.setState({
             fileName2:e.target.value.split('\\').pop()
         });
+        const input = e.target;
+        if('files' in input && input.files.length > 0){
+            this.placeFileContent(input.files[0], 2);
+        }
     }
-
+    placeFileContent = (file, player) => {
+        readFileContent(file).then(content => {
+            if(player === 1) {
+                fileData1 = content;
+            }
+            else {
+                fileData2 = content;
+            }
+        }).catch(error => console.log("error thrown: " + error));
+    }
+    readFileContent(file) {
+        const reader = new FileReader();
+        return new Promise((resolve, reject) => {
+            reader.onload = event => resolve(event.target.result);
+            reader.onerror = error => reject(error);
+            reader.readAsText(file);
+        });
+    }
     //below will be some event handlers for the buttons. should be two of them.
     createGame = (e) => {
+        var fileData = null;
         e.preventDefault();
         if(this.state.player1UserName != "" && this.state.fileName1 != "Pick Python File") {
             let URL = 'http://localhost:3000/create';
@@ -53,13 +81,14 @@ class MainPager extends React.Component {
             localStorage.userName = this.state.player1UserName;
             let data = {
                 username: this.state.player1UserName,
-                file: this.state.file
+                file: this.state.fileData1,
             };
             $.post(URL, data, function(data, status) {
                 //data sent to and recieved from the server. going to the 
                 console.log("Game is Created. Changing page now.");
                 localStorage.pToken = data.roomCode;
                 localStorage.opponent = " Waiting..."
+                localStorage.waitMessage = "Send the Game ID to whomever you wish to challenge.\n";
                 localStorage.isP1=true;
                 window.location.replace('/lobby.html');
             });
@@ -75,10 +104,11 @@ class MainPager extends React.Component {
             //sending the data to the server.
             localStorage.userName = this.state.player2UserName;
             localStorage.pToken = this.state.gameID;
+            localStorage.waitMessage = "The match is currently loading! The AI's are duking it out.";
             let data = {
                 username: this.state.player2UserName,
                 gameId: this.state.gameID,
-                file:this.state.file,
+                file:this.state.filedata2,
             }
             $.post(URL, data, function(data, status) {
                 console.log("game is being joined. Going to the loading page.");
@@ -88,7 +118,7 @@ class MainPager extends React.Component {
             });
         }
         else {
-            alert("You forgot to enter important data somewhere bud!" + this.state.player2UserName);
+            alert("You forgot to enter important data somewhere bud!");
         }
     }
     
@@ -133,6 +163,3 @@ class MainPager extends React.Component {
 }
 const domContainer = document.querySelector('#root');
 ReactDOM.render(c(MainPager), domContainer);
-
-var input = document.getElementById('fileAccepter1');
-var label = document.getElementById('p1FileLabel');

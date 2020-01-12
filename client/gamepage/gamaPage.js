@@ -18,6 +18,7 @@ class GameRoom extends React.Component {
     render() {
         return(
             c("div",{id:"main"},
+                c("h1", {id: "gameTitle"}, "Tic Tack Too"),
                 //below is code for displaying the player 1 code...
                 c("div",{className:"code"}, 
                     c("pre",null, 
