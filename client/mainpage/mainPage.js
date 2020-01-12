@@ -129,7 +129,6 @@ class MainPager extends React.Component {
     
     componentDidMount() {
         socket.on('connection', () => {
-            alert('hi')
             socket.emit('join', {
                 roomCode: localStorage.pToken
             })

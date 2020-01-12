@@ -14,6 +14,15 @@ class GameRoom extends React.Component {
             player2Code: ""
         }
     }
+
+    componentDidMount() {
+        socket.on('connection', () => {
+            socket.emit('join', {
+                roomCode: localStorage.pToken
+            })
+        })
+    }
+
     render(){
         return(
             c("div",{id:"main"},

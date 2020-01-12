@@ -120,9 +120,7 @@ io.sockets.on('connection', (socket) => {
                     socket.emit('joinGameResponse', {
                         p1Name: room.firstUsername // tell client to redirect and set some variables
                     })
-                    socket.broadcast.to(data.roomCode).emit('secondPlayerJoined', {
-                        p2Name: data.username // tell owner that second player has joined
-                    })
+                    
                     throw BreakException;
                 }
             })
@@ -132,6 +130,12 @@ io.sockets.on('connection', (socket) => {
             // found a room code that matched
         }
         
+    })
+
+    socket.on('secondPlayerLoaded', (data)=>{
+        socket.broadcast.to(data.roomCode).emit('secondPlayerJoined', {
+            p2Name: data.username // tell owner that second player has joined
+        })
     })
     
 
@@ -145,7 +149,10 @@ io.sockets.on('connection', (socket) => {
                     // need to write room.firstBot to bot0.txt and room.secondBot to bot1.txt
                     fs.writeFile('bot0.txt', room.firstBot, 'ascii', ()=>{
                         fs.writeFile('bot1.txt', room.secondBot, 'ascii', ()=>{
-                            runBots()
+                            gameData = runBots(room.roomCode)
+                            io.sockets.to(room.roomCode).emit('displayGame', {
+                                gameData: gameData
+                            })
                             //////////// END OF WORK HERE. PROBABLY NEED TO RETURN THEN SOCKET.EMIT
                         });
                     });
@@ -170,7 +177,7 @@ io.sockets.on('connection', (socket) => {
 
 
 
-function runBots(){
+function runBots(roomCode){
     console.log('run')
 	//https://www.geeksforgeeks.org/run-python-script-node-js-using-child-process-spawn-method/
 	const spawn = require("child_process").spawn;
@@ -180,8 +187,8 @@ function runBots(){
 	process.stdout.on('data', function(data) {
         console.log('here')
 		console.log(data.toString())
-		console.log(JSON.parse(data.toString().replace(/'/g,'"').replace(/None/g,'null').replace(/True/g,'true'))) // replace single quotes with double quotes. replace None with null. replace True with true
-        //res.send(data.toString()); 
+		console.log(JSON.parse(data.toString().replace(/'/g,'"').replace(/None/g,' ').replace(/True/g,'true'))) // replace single quotes with double quotes. replace None with null. replace True with true
+        return JSON.parse(data.toString().replace(/'/g,'"').replace(/None/g,' ').replace(/True/g,'true'))
     } ) 
 }
 
