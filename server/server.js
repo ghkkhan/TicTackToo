@@ -42,7 +42,7 @@ function generate_token(length){
 roomCount = 0
 
 app.post('/create', (req, res) => {
-    // console.log(req.body)
+    console.log(req.body)
 	users.push(req.body.username)
 	
 	room_and_code.push({
