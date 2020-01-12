@@ -22,18 +22,14 @@ class LobbyPager extends React.Component {
 
     componentDidMount() {
         socket.on('connection', () => {
-            alert('hi')
             socket.emit('join', {
-                roomCode: localStorage.pToken
-            })
-
-            // TESTING
-            socket.emit('runTicTac', {
                 roomCode: localStorage.pToken
             })
         })
 
-        if(localStorage.isP1){
+        console.log(localStorage.isP1)
+
+        if(localStorage.isP1 == true){
             socket.on('secondPlayerJoined', ()=>{
                 alert('second player joined')
                 socket.emit('runTicTac', {
@@ -41,6 +37,19 @@ class LobbyPager extends React.Component {
                 })
             })
         }
+        else{
+            socket.emit('secondPlayerLoaded', {
+                roomCode: localStorage.pToken,
+                username: localStorage.username
+
+            })
+        }
+
+        socket.on('displayGame', (data)=>{
+            alert('show data')
+            localStorage.gameData = data.gameData
+            window.location.replace('/gamePage.html')
+        })
     }
 
     render() {
