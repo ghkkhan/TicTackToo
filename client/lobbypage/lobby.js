@@ -19,6 +19,30 @@ class LobbyPager extends React.Component {
             userName2:localStorage.opponent,
         };
     }
+
+    componentDidMount() {
+        socket.on('connection', () => {
+            alert('hi')
+            socket.emit('join', {
+                roomCode: localStorage.pToken
+            })
+
+            // TESTING
+            socket.emit('runTicTac', {
+                roomCode: localStorage.pToken
+            })
+        })
+
+        if(localStorage.isP1){
+            socket.on('secondPlayerJoined', ()=>{
+                alert('second player joined')
+                socket.emit('runTicTac', {
+                    roomCode: localStorage.pToken
+                })
+            })
+        }
+    }
+
     render() {
         return(
             c("div", null, 

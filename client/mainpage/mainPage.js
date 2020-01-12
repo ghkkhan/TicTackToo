@@ -74,6 +74,7 @@ class MainPager extends React.Component {
     //below will be some event handlers for the buttons. should be two of them.
     createGame = (e) => {
         var fileData = null;
+
         e.preventDefault();
         if(this.state.player1UserName != "" && this.state.fileName1 != "Pick Python File") {
             let URL = 'http://localhost:3000/create';
@@ -83,7 +84,8 @@ class MainPager extends React.Component {
                 username: this.state.player1UserName,
                 file: fileData1,
             };
-            $.post(URL, data, function(data, status) {
+            socket.emit('createGame', data);
+            socket.on('createGameResponse', (data)=>{
                 //data sent to and recieved from the server. going to the 
                 console.log("Game is Created. Changing page now.");
                 localStorage.pToken = data.roomCode;
@@ -91,7 +93,8 @@ class MainPager extends React.Component {
                 localStorage.waitMessage = "Send the Game ID to whomever you wish to challenge.\n";
                 localStorage.isP1=true;
                 window.location.replace('/lobby.html');
-            });
+            })
+
         }
         else {
             alert("You forgot to enter a username, dummy!");
@@ -107,29 +110,40 @@ class MainPager extends React.Component {
             localStorage.waitMessage = "The match is currently loading! The AI's are duking it out.";
             let data = {
                 username: this.state.player2UserName,
-                gameId: this.state.gameID,
-                file:this.state.filedata2,
+                roomCode: this.state.gameID,
+                file:fileData2,
             }
-            $.post(URL, data, function(data, status) {
+            socket.emit('joinGame', data);
+            socket.on('joinGameResponse', (data)=>{
                 console.log("game is being joined. Going to the loading page.");
                 localStorage.opponent = data.p1Name;
                 localStorage.isP1 = false;
                 window.location.replace('/lobby.html');//this will go to another page later on...
-            });
+            })
+            socket.on('canNotJoinRoom', ()=>{
+                alert('room name not available')
+            })
         }
         else {
             alert("You forgot to enter important data somewhere bud!");
         }
     }
     
-    // componentDidMount() {
-    //     if(localStorage.pToken === null) {
-    //         console.log('this player already has a ');
-    //     }
-    // }
+    componentDidMount() {
+        socket.on('connection', () => {
+            alert('hi')
+            socket.emit('join', {
+                roomCode: localStorage.pToken
+            })
+        })
+        // if(localStorage.pToken === null) {
+        //     console.log('this player already has a ');
+        // }
+    }
 
     //react stuff. looks pretty disgusting but Babel doesn't work for me...
     render() {
+        //var socket = io.connect('http://localhost:3000');
         return (
             c("div", null,
                 c("h1", {id: "gameTitle"}, "Tic Tack Too"),
