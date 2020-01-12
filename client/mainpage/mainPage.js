@@ -106,7 +106,7 @@ class MainPager extends React.Component {
             let data = {
                 username: this.state.player2UserName,
                 gameId: this.state.gameID,
-                file: filedata2,
+                file: fileData2,
             }
             $.post(URL, data, function(data, status) {
                 console.log("game is being joined. Going to the loading page.");

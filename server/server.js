@@ -62,7 +62,6 @@ app.post('/joinGame', (req, res) => {
     users.push(req.body.username);
     room_and_code.forEach(function(item, index, array){
         if(item.roomCode === req.gameId) {
-            
             room_and_code[index].user1 = req.body.username;
         }
         data = {
