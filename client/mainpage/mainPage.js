@@ -134,9 +134,6 @@ class MainPager extends React.Component {
                 roomCode: localStorage.pToken
             })
         })
-        // if(localStorage.pToken === null) {
-        //     console.log('this player already has a ');
-        // }
     }
 
     //react stuff. looks pretty disgusting but Babel doesn't work for me...
