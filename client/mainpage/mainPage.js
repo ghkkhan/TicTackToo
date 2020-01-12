@@ -15,8 +15,6 @@ class MainPager extends React.Component {
         gameID: "",
         fileName1:"Pick Python File",
         fileName2: "Pick Python File",
-        fileData1:null,
-        fileData2: null,
         };
     }
   //next up are some setters for the states... should be 5 of 'em
@@ -41,7 +39,7 @@ class MainPager extends React.Component {
         });
         const input = e.target;
         if('files' in input && input.files.length > 0) {
-            placeFileContent(input.files[0], 1);
+            this.placeFileContent(input.files[0], 1);
         }
     }
     p2FileNameChange = (e) => {
@@ -54,7 +52,7 @@ class MainPager extends React.Component {
         }
     }
     placeFileContent = (file, player) => {
-        readFileContent(file).then(content => {
+        this.readFileContent(file).then(content => {
             if(player === 1) {
                 fileData1 = content;
             }
@@ -63,7 +61,7 @@ class MainPager extends React.Component {
             }
         }).catch(error => console.log("error thrown: " + error));
     }
-    readFileContent(file) {
+    readFileContent = (file) => {
         const reader = new FileReader();
         return new Promise((resolve, reject) => {
             reader.onload = event => resolve(event.target.result);
@@ -81,7 +79,7 @@ class MainPager extends React.Component {
             localStorage.userName = this.state.player1UserName;
             let data = {
                 username: this.state.player1UserName,
-                file: this.state.fileData1,
+                file: fileData1,
             };
             $.post(URL, data, function(data, status) {
                 //data sent to and recieved from the server. going to the 
@@ -108,7 +106,7 @@ class MainPager extends React.Component {
             let data = {
                 username: this.state.player2UserName,
                 gameId: this.state.gameID,
-                file:this.state.filedata2,
+                file: filedata2,
             }
             $.post(URL, data, function(data, status) {
                 console.log("game is being joined. Going to the loading page.");
