@@ -41,7 +41,7 @@ class MainPager extends React.Component {
         });
         const input = e.target;
         if('files' in input && input.files.length > 0) {
-            placeFileContent(input.files[0], 1);
+            this.placeFileContent(input.files[0], 1);
         }
     }
     p2FileNameChange = (e) => {
@@ -54,7 +54,7 @@ class MainPager extends React.Component {
         }
     }
     placeFileContent = (file, player) => {
-        readFileContent(file).then(content => {
+        this.readFileContent(file).then(content => {
             if(player === 1) {
                 fileData1 = content;
             }
@@ -81,7 +81,7 @@ class MainPager extends React.Component {
             localStorage.userName = this.state.player1UserName;
             let data = {
                 username: this.state.player1UserName,
-                file: this.state.fileData1,
+                file: fileData1,
             };
             $.post(URL, data, function(data, status) {
                 //data sent to and recieved from the server. going to the 
