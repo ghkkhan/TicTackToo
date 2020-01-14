@@ -133,8 +133,10 @@ io.sockets.on('connection', (socket) => {
     })
 
     socket.on('secondPlayerLoaded', (data)=>{
+        temp = data.username
+        console.log('second player has joined... line 136 ' + temp)
         socket.broadcast.to(data.roomCode).emit('secondPlayerJoined', {
-            p2Name: data.username // tell owner that second player has joined
+            p2Name: temp // tell owner that second player has joined
         })
     })
     

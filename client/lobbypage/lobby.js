@@ -26,29 +26,30 @@ class LobbyPager extends React.Component {
                 roomCode: localStorage.pToken
             })
         })
-
-        console.log(localStorage.isP1)
-
-        if(localStorage.isP1 == true){
-            socket.on('secondPlayerJoined', ()=>{
-                alert('second player joined')
+        //changed localstorage.isP1 from boolean to integer because boolean was giving strange error.
+        if(localStorage.isP1 == 0){
+            socket.on('secondPlayerJoined', (data) => {
+                console.log('second player has joined')
+                this.setState({
+                    userName2: data.p2Name,
+                    waitMessage:"The match is currently loading! The AI's are duking it out."
+                });
                 socket.emit('runTicTac', {
                     roomCode: localStorage.pToken
-                })
-            })
+                });
+            });
         }
         else{
             socket.emit('secondPlayerLoaded', {
                 roomCode: localStorage.pToken,
-                username: localStorage.username
-
+                username: localStorage.userName
             })
         }
 
         socket.on('displayGame', (data)=>{
             alert('show data')
             localStorage.gameData = data.gameData
-            window.location.replace('/gamePage.html')
+            //window.location.replace('/gamePage.html')
         })
     }
 

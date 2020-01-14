@@ -89,7 +89,7 @@ class MainPager extends React.Component {
                 localStorage.pToken = data.roomCode;
                 localStorage.opponent = " Waiting..."
                 localStorage.waitMessage = "Send the Game ID to whomever you wish to challenge.\n";
-                localStorage.isP1=true;
+                localStorage.isP1=0;
                 window.location.replace('/lobby.html');
             })
 
@@ -115,7 +115,7 @@ class MainPager extends React.Component {
             socket.on('joinGameResponse', (data)=>{
                 console.log("game is being joined. Going to the loading page.");
                 localStorage.opponent = data.p1Name;
-                localStorage.isP1 = false;
+                localStorage.isP1 = 1;
                 window.location.replace('/lobby.html');//this will go to another page later on...
             })
             socket.on('canNotJoinRoom', ()=>{
