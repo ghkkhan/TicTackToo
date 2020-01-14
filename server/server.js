@@ -153,7 +153,9 @@ io.sockets.on('connection', (socket) => {
                         fs.writeFile('bot1.txt', room.secondBot, 'ascii', ()=>{
                             gameData = runBots(room.roomCode)
                             io.sockets.to(room.roomCode).emit('displayGame', {
-                                gameData: gameData
+                                gameData: gameData,
+                                p1Code: room.firstBot,
+                                p2Code:room.secondBot
                             })
                             //////////// END OF WORK HERE. PROBABLY NEED TO RETURN THEN SOCKET.EMIT
                         });

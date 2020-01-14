@@ -9,9 +9,10 @@ class GameRoom extends React.Component {
         super(props);
         this.state = {
             endpoint: "localhost:8080",
-            board:[["X","O","O"],["O","X","O"],["X","O","X"]],
-            player1Code: ``,
-            player2Code: ""
+            // board:[["X","O","O"],["O","X","O"],["X","O","X"]],
+            board:localStorage.gameData,
+            player1Code:localStorage.yourCode,
+            player2Code: localStorage.garbageCode,
         }
     }
 
@@ -29,11 +30,7 @@ class GameRoom extends React.Component {
                 c("h1", {id: "gameTitle"}, "Tic Tack Too"),
                 //below is code for displaying the player 1 code...
                 c("div",{className:"code"}, 
-                    c("textarea", {className:"textBoxes", readonly:"readonly"}, `
-import test;\n
-    wut?
-    reutrn 4fawjofwaefhiauwheflaeihfli hli hualwie hailwehfu aluiwefiuhaweiufhawiuefh lawhf ilfwh iu;
-end code </>`),
+                    c("textarea", {className:"textBoxes", readonly:"readonly"}, this.state.player1Code),
                 ),
                 //below is code for displaying the board
                 c("div", {id: "board"},
@@ -57,11 +54,7 @@ end code </>`),
                 ),
                 //below is code for displaying the player 2's code.
                 c("div",{className:"code"}, 
-                    c("textarea", {className:"textBoxes", readonly:"readonly"}, `
-import test;
-    wut?
-    reutrn 4;awjofwaefhiauwheflaeihfli hli hualwie hailwehfu aluiwefiuhaweiufhawiuefh lawhf ilfwh iu;
-end code </>`),
+                    c("textarea", {className:"textBoxes", readonly:"readonly"}, this.state.player2Code),
                 ),
             )
         );

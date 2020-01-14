@@ -48,8 +48,16 @@ class LobbyPager extends React.Component {
 
         socket.on('displayGame', (data)=>{
             alert('show data')
-            localStorage.gameData = data.gameData
-            //window.location.replace('/gamePage.html')
+            localStorage.gameData = data.gameData;
+            if(localStorage.isP1 == 0){
+                localStorage.yourCode = data.p1Code;
+                localStorage.garbageCode = data.p2Code;
+            }
+            else {
+                localStorage.yourCode = data.p2Code;
+                localStorage.garbageCode = data.p1Code;
+            }
+            window.location.replace('/gamePage.html')
         })
     }
 
