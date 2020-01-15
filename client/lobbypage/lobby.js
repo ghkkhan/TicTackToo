@@ -47,7 +47,7 @@ class LobbyPager extends React.Component {
         }
 
         socket.on('displayGame', (data)=>{
-            alert('show data')
+            // alert('show data')
             localStorage.gameData = data.gameData;
             if(localStorage.isP1 == 0){
                 localStorage.yourCode = data.p1Code;

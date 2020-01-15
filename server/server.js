@@ -151,13 +151,14 @@ io.sockets.on('connection', (socket) => {
                     // need to write room.firstBot to bot0.txt and room.secondBot to bot1.txt
                     fs.writeFile('bot0.txt', room.firstBot, 'ascii', ()=>{
                         fs.writeFile('bot1.txt', room.secondBot, 'ascii', ()=>{
-                            gameData = runBots(room.roomCode)
-                            console.log("game data comming");
-                            console.log(gameData)
-                            io.sockets.to(room.roomCode).emit('displayGame', {
-                                gameData: gameData,
-                                p1Code: room.firstBot,
-                                p2Code:room.secondBot
+                            // run the bots against eachother first, then send the game data using call back function
+                            gameData = runBots(room.roomCode, (gameData)=>{
+                                console.log('got here')
+                                io.sockets.to(room.roomCode).emit('displayGame', {
+                                    gameData: gameData,
+                                    p1Code: room.firstBot,
+                                    p2Code:room.secondBot
+                                })
                             })
                             //////////// END OF WORK HERE. PROBABLY NEED TO RETURN THEN SOCKET.EMIT
                         });
@@ -183,7 +184,7 @@ io.sockets.on('connection', (socket) => {
 
 
 
-function runBots(roomCode){
+function runBots(roomCode, fn){
     console.log('run')
 	//https://www.geeksforgeeks.org/run-python-script-node-js-using-child-process-spawn-method/
 	const spawn = require("child_process").spawn;
@@ -193,8 +194,9 @@ function runBots(roomCode){
 	process.stdout.on('data', function(data) {
         console.log('here')
 		console.log(data.toString())
-		console.log(JSON.parse(data.toString().replace(/'/g,'"').replace(/None/g,' ').replace(/True/g,'true'))) // replace single quotes with double quotes. replace None with null. replace True with true
-        return JSON.parse(data.toString().replace(/'/g,'"').replace(/None/g,' ').replace(/True/g,'true'))
+		console.log(JSON.parse(data.toString().replace(/'/g,'"').replace(/None/g,'null').replace(/True/g,'true'))) // replace single quotes with double quotes. replace None with null. replace True with true
+        return fn(JSON.parse(data.toString().replace(/'/g,'"').replace(/None/g,'null').replace(/True/g,'true')))
+        
     } ) 
 }
 

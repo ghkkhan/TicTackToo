@@ -1,1 +1,1 @@
-a = data['total_moves'] * 4 % 9
+a = data['total_moves'] % 9

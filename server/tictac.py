@@ -111,7 +111,7 @@ class Bot:
                 
   
 ######################
-f = open("output.txt", "r")
+f = open("output.txt", "w")
 g = GameManager()
 
 bot0 = Bot('bot0.txt')
