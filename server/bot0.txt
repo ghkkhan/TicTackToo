@@ -1,16 +1,1 @@
-test = input()
-fef = ["+", "-", "*", "//"]
-def fefe(fe):
-    for i in range(4):
-        for j in range(4):
-            for k in range(4):
-                w = eval("4" + fef[i] + "4" + fef[j] + "4" + fef[k] + "4")
-                if(w == int(fe)):
-                    fef[3] = "/"
-                    print("4 " + fef[i] + " 4 " + fef[j] + " 4 " + fef[k] + " 4 = " + fe)
-                    fef[3] = "//"
-                    return
-    print("no solution")
-for i in range(int(test)):
-    case = input()
-    fefe(case)
+a = data['total_moves'] % 9
