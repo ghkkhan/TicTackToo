@@ -152,6 +152,8 @@ io.sockets.on('connection', (socket) => {
                     fs.writeFile('bot0.txt', room.firstBot, 'ascii', ()=>{
                         fs.writeFile('bot1.txt', room.secondBot, 'ascii', ()=>{
                             gameData = runBots(room.roomCode)
+                            console.log("game data comming");
+                            console.log(gameData)
                             io.sockets.to(room.roomCode).emit('displayGame', {
                                 gameData: gameData,
                                 p1Code: room.firstBot,
