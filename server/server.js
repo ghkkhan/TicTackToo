@@ -12,11 +12,11 @@ const io = require('socket.io')(http);
 
 // global vars
 var rooms = []; // consists of {firstUsername: , secondUsername: , firstBot: , secondBot: , roomCode: }
-var roomCount = 0;
+var roomCount = 1;
 
 function random(seed) {
     var x = Math.sin(seed) * 10000;
-    return Math.floor(x);
+    return x-Math.floor(x);
 }
 // send index on main page
 
@@ -95,17 +95,17 @@ io.sockets.on('connection', (socket) => {
     })
 
     socket.on('createGame', (data)=>{
-        socket.join(roomCount.toString());
+        socket.join(random(roomCount).toString().substring(2,5));
 
         rooms.push({
             firstUsername: data.username,
             secondUsername: null,
-            roomCode: random(roomCount).toString(),
+            roomCode: random(roomCount).toString().substring(2,5),
             firstBot: data.file,
             secondBot: null
         });
         socket.emit('createGameResponse', {
-            roomCode: random(roomCount).toString()
+            roomCode: random(roomCount).toString().substring(2,5)
         })
         roomCount++
         console.log(random(roomCount).toString())
