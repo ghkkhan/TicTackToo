@@ -153,7 +153,9 @@ io.sockets.on('connection', (socket) => {
                         fs.writeFile('bot1.txt', room.secondBot, 'ascii', ()=>{
                             // run the bots against eachother first, then send the game data using call back function
                             gameData = runBots(room.roomCode, (gameData)=>{
-                                console.log('got here')
+                                console.log('got here: Gamedata below');
+                                console.log(gameData);
+                                console.log("Gamedata above");
                                 io.sockets.to(room.roomCode).emit('displayGame', {
                                     gameData: gameData,
                                     p1Code: room.firstBot,
@@ -172,7 +174,6 @@ io.sockets.on('connection', (socket) => {
         }
     })
     
-
     socket.on('disconnect', ()=>{
         console.log('disconnected')
     })
@@ -197,7 +198,7 @@ function runBots(roomCode, fn){
 		console.log(JSON.parse(data.toString().replace(/'/g,'"').replace(/None/g,'null').replace(/True/g,'true'))) // replace single quotes with double quotes. replace None with null. replace True with true
         return fn(JSON.parse(data.toString().replace(/'/g,'"').replace(/None/g,'null').replace(/True/g,'true')))
         
-    } ) 
+    } )
 }
 
 

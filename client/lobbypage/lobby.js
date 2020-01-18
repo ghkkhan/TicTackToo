@@ -49,6 +49,55 @@ class LobbyPager extends React.Component {
         socket.on('displayGame', (data)=>{
             // alert('show data')
             localStorage.gameData = data.gameData;
+            var i = 0;
+            var strg = "";
+            for(var prop in data.gameData) {
+                console.log('  ' + prop + " : : " + prop.toString() + ' : ' + data.gameData[prop]);
+                i++;
+                if(i == 3) {
+                    strg = data.gameData[prop].toString();
+                }
+            }
+            var tempArray = strg.split(',');
+            var s1 = "", s2 = "", s3 = "";
+            for(var i = 0; i < 9; i++) {
+                if(tempArray[i]=== "0") {
+                    if(i < 3) {
+                        s1 += "X";
+                    }
+                    else if( i < 6){
+                        s2 += "X";
+                    }
+                    else {
+                        s3 += "X";
+                    }
+                }
+                else if(tempArray[i] === "1") {
+                    if(i < 3) {
+                        s1 += "O";
+                    }
+                    else if( i < 6){
+                        s2 += "O";
+                    }
+                    else {
+                        s3 += "O";
+                    }
+                }
+                else {
+                    if(i < 3) {
+                        s1 += " ";
+                    }
+                    else if( i < 6){
+                        s2 += " ";
+                    }
+                    else {
+                        s3 += " ";
+                    }
+                }
+            }
+            localStorage.S1 = s1;
+            localStorage.S2 = s2;
+            localStorage.S3 = s3;
             if(localStorage.isP1 == 0){
                 localStorage.yourCode = data.p1Code;
                 localStorage.garbageCode = data.p2Code;
@@ -57,6 +106,7 @@ class LobbyPager extends React.Component {
                 localStorage.yourCode = data.p2Code;
                 localStorage.garbageCode = data.p1Code;
             }
+            console.log("Did this run?")
             window.location.replace('/gamePage.html')
         })
     }
