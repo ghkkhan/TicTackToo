@@ -14,6 +14,10 @@ const io = require('socket.io')(http);
 var rooms = []; // consists of {firstUsername: , secondUsername: , firstBot: , secondBot: , roomCode: }
 var roomCount = 0;
 
+function random(seed) {
+    var x = Math.sin(seed) * 10000;
+    return Math.floor(x);
+}
 // send index on main page
 
 app.use(express.static('../client/mainpage'));
@@ -21,7 +25,6 @@ app.use(express.static('../client/lobbypage'));
 app.use(express.static('../client/gamepage'));
 
 let index = path.join(__dirname, '/../index.html');
-let lobby = path.join(__dirname, '/../client/lobbypage/lobby.html');
 
 app.get('/', (req, res) => {
     res.sendFile(index);
@@ -92,19 +95,20 @@ io.sockets.on('connection', (socket) => {
     })
 
     socket.on('createGame', (data)=>{
-        socket.join(roomCount.toString())
+        socket.join(roomCount.toString());
+
         rooms.push({
             firstUsername: data.username,
             secondUsername: null,
-            roomCode: roomCount.toString(),
+            roomCode: random(roomCount).toString(),
             firstBot: data.file,
             secondBot: null
-        })
+        });
         socket.emit('createGameResponse', {
-            roomCode: roomCount
+            roomCode: random(roomCount).toString()
         })
         roomCount++
-        console.log(roomCount)
+        console.log(random(roomCount).toString())
     })
 
     socket.on('joinGame', (data)=>{

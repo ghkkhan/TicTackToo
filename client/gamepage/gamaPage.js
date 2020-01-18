@@ -9,12 +9,13 @@ class GameRoom extends React.Component {
         super(props);
         this.state = {
             endpoint: "localhost:8080",
-            // board:[["X","O","O"],["O","X","O"],["X","O","X"]],
             b1:localStorage.S1,
             b2:localStorage.S2,
             b3:localStorage.S3,
             player1Code:localStorage.yourCode,
             player2Code: localStorage.garbageCode,
+            playerName:localStorage.userName,
+            opponentName: localStorage.opponent,
         }
     }
 
