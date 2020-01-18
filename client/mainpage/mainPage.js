@@ -145,7 +145,7 @@ class MainPager extends React.Component {
                     c("h3",{className:"gameText"},"Enter your name, Challenger!"),
                     c("h5",{className:"gameText"},"Then select your AI Python Script"),
                     c("input", {type:"text", onChange:this.HandlePlayer1Input, className:"dataForm", placeholder:"Enter username here", name:"P1Usr_Nme"}),
-                    c("input",{type:"file", id:"fileAccepter1", className:"fileAccepter", accept:".py", onChange:this.p1FileNameChange}),
+                    c("input",{type:"file", id:"fileAccepter1", className:"fileAccepter", accept:".txt", onChange:this.p1FileNameChange}),
                     c("label", {className:"FALabel", htmlFor:"fileAccepter1", id:"p1FileLabel"},
                         c("img", {src:"/python-seeklogo.com.svg", alt:"test", width:"20px",height:"20px", }), 
                         c("span",null, " "+this.state.fileName1)
@@ -156,7 +156,7 @@ class MainPager extends React.Component {
                     c("h5", {className:"gameText"}, "Also input your python script here."),
                     c("input", {type:"text", onChange:this.HandlePlayer2Inputs, className:"dataForm", placeholder: "Enter UserName here", name:"P2Usr_Nme"}),
                     c("input", {type:"text", onChange:this.HandlePlayer2MatchID, className:"dataForm", placeholder: "Enter Code Here", name:"P2Mch_ID"}),
-                    c("input",{type:"file", id:"fileAccepter2", className:"fileAccepter", accept:".py", onChange:this.p2FileNameChange}),
+                    c("input",{type:"file", id:"fileAccepter2", className:"fileAccepter", accept:".txt", onChange:this.p2FileNameChange}),
                     c("label", {className:"FALabel", htmlFor:"fileAccepter2", id:"p2FileLabel"},
                         c("img", {src:"/python-seeklogo.com.svg", alt:"test", width:"20px",height:"20px", }), 
                         c("span",null, " " + this.state.fileName2)
