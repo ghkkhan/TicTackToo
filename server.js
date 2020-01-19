@@ -20,11 +20,11 @@ function random(seed) {
 }
 // send index on main page
 
-app.use(express.static('../client/mainpage'));
-app.use(express.static('../client/lobbypage'));
-app.use(express.static('../client/gamepage'));
+app.use(express.static('./client/mainpage'));
+app.use(express.static('./client/lobbypage'));
+app.use(express.static('./client/gamepage'));
 
-let index = path.join(__dirname, '/../index.html');
+let index = path.join(__dirname, 'index.html');
 
 app.get('/', (req, res) => {
     res.sendFile(index);
