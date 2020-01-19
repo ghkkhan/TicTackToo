@@ -4,7 +4,8 @@
   "description": "TTT Arena. Place for the greatest of TTT AIs to duke it out and come out on top",
   "main": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "cd server && node server.js"
   },
   "author": "huz and ian",
   "license": "ISC",
