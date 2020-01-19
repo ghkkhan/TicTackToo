@@ -6,9 +6,18 @@ const fs = require('fs');
 
 // setting up express
 const app = express();
-const port = 3000;
+let port = 3000;
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
+
+
+app.set('port', (process.env.PORT || port))
+
+port = process.env.PORT;
+if (port == null || port == "") {
+  port = 3000;
+}
+
 
 // global vars
 var rooms = []; // consists of {firstUsername: , secondUsername: , firstBot: , secondBot: , roomCode: }
